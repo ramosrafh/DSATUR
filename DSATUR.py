@@ -1,5 +1,3 @@
-import random
-
 class Vertice:
 	def __init__(self, n):
 		self.nome = n
@@ -61,7 +59,6 @@ class Grafo:
 		for vertice in self.vertices:
 			if self.vertices[vertice].cor == -1:
 				return False
-            
 		return True
 	
 	def verif(self, vert, cor):
@@ -77,9 +74,12 @@ class Grafo:
 			return True
 		while not self.todosColoridos():
 			for i in colors:
-				if self.verif(vert, i):
+				if self.verif(vert, i) and self.vertices[vert].cor == -1:
 					self.vertices[vert].cor = i
 					self.pintar(self.max_adj(vert))
+			self.pintar(self.max_adj(vert))
+			self.pintar(self.max_adj(vert))
+			self.pintar(self.max_adj(vert))
 			break
 
 	
@@ -91,10 +91,10 @@ class Grafo:
 
 
 g = Grafo()
-for i in range(ord('A'), ord('G')):
+for i in range(ord('A'), ord('K')):
 	g.add_vertice(Vertice(chr(i)))
 
-arestas = ['AB', 'AC', 'BC', 'CD', 'CE']
+arestas = ['AB', 'AC', 'AJ', 'BC', 'BG', 'BD', 'BJ', 'JD', 'JG', 'GH', 'IG', 'IH', 'ID', 'IC', 'FC', 'FE', 'FG', 'GE', 'EC', 'HJ', 'HI', 'DC']
 for aresta in arestas:
 	g.add_aresta(aresta[:1], aresta[1:])
 
