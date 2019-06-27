@@ -95,11 +95,13 @@ class Grafo:
 
 
 g = Grafo()
+
 #for i in range(ord('A'), ord('K')):
 #	g.add_vertice(Vertice(chr(i)))
 
 arestas = []
 
+# PARA LER O ARQUIVO CSV
 
 with open('grafo.csv', newline='') as csvfile:
 	csv_reader = csv.reader(csvfile, delimiter=',')
@@ -129,5 +131,38 @@ g.pintar(g.max_len())
 print('')
 g.mostrar_grafo()
 
+# PARA ESCREVER O ARQUIVO CSV
+
+vertices = []
+cores = []
+
+loop = len(g.vertices)
+
+for i in range(loop):
+	vertices.append(list(g.vertices)[i])
+#print(vertices)
+
+for i in range(65, (65+loop)):
+	cores.append(g.vertices[chr(i)].cor)
+#print(cores)
 
 
+with open('resultado.csv', 'w') as new_file:
+	csv_writer = csv.writer(csvfile, delimiter=',')
+
+	for line in csv_reader:
+		csv_writer.writerow(line)
+
+
+
+
+with open('test.csv','a') as tempLog:
+    csv.writer(tempLog).writerow(["Time","Temp"])
+    
+for i in range(50):
+    #These are just to get some data for demonstration
+    time=i    
+    temp=i*20
+    
+    with open('test.csv','a') as tempLog:
+        csv.writer(tempLog).writerow([time,temp])
