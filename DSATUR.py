@@ -1,4 +1,6 @@
+import time
 import csv
+import math
 
 class Vertice:
 	def __init__(self, n):
@@ -40,6 +42,39 @@ class Grafo:
 			    vert = u
 		return vert
 
+	def res_max(self):
+		max = 0
+		for u in self.vertices:
+			leng = len(list(self.vertices[u].adjacentes))
+			if leng >= max:
+			    max = leng
+		return max
+
+	def res_med(self):
+		soma = 0
+		med = 0
+		for u in self.vertices:
+			leng = len(list(self.vertices[u].adjacentes))
+			soma += leng
+		med = (soma/len(self.vertices))
+		return med
+
+	def res_min(self):
+		min = 100000
+		for u in self.vertices:
+			leng = len(list(self.vertices[u].adjacentes))
+			if leng <= min:
+			    min = leng
+		return min
+
+	def res_desvio(self):
+		num = 0
+		desv = 0
+		for u in self.vertices:
+			leng = len(list(self.vertices[u].adjacentes))
+			num += ((leng-(self.res_med())) ** 2)
+		desv = math.sqrt((num/((len(self.vertices)))))
+		return desv
 		        
 	def max_adj(self, u):
 		max = 0
@@ -71,18 +106,17 @@ class Grafo:
 	
 
 	def pintar(self, vert):
-		colors = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+		colors = []
+		for i in range(1, len(self.vertices)):
+			colors.append(i)
 		if vert == '':
-			return True
-		while not self.todosColoridos():
-			for i in colors:
-				if self.verif(vert, i) and self.vertices[vert].cor == -1:
-					self.vertices[vert].cor = i
-					self.pintar(self.max_adj(vert))
-			self.pintar(self.max_adj(vert))
-			self.pintar(self.max_adj(vert))
-			self.pintar(self.max_adj(vert))
-			break
+			return True	
+		for i in colors:
+			if self.verif(vert, i) and self.vertices[vert].cor == -1:
+				self.vertices[vert].cor = i
+				self.pintar(self.max_adj(vert))
+		self.pintar(self.max_adj(vert))
+		return True
 
 	
 		            
@@ -92,12 +126,9 @@ class Grafo:
 
 # MAIN
 
-
+start = time.time()
 
 g = Grafo()
-
-#for i in range(ord('A'), ord('K')):
-#	g.add_vertice(Vertice(chr(i)))
 
 arestas = []
 
@@ -119,9 +150,6 @@ with open('grafo.csv', newline='') as csvfile:
 			arestas.append(col)
 			i += 1
 
-
-#arestas = ['AB', 'AC', 'AJ', 'BC', 'BG', 'BD', 'BJ', 'JD', 'JG', 'GH', 'IG', 'IH', 'ID', 'IC', 'FC', 'FE', 'FG', 'GE', 'EC', 'HJ', 'HI', 'DC']
-
 for aresta in arestas:
 	g.add_aresta(aresta[:1], aresta[1:])
 
@@ -130,6 +158,15 @@ print('')
 g.pintar(g.max_len())
 print('')
 g.mostrar_grafo()
+
+print('')
+print('Maior grau: ', g.res_max())
+print('')
+print('Menor grau: ', g.res_min())
+print('')
+print('Media: ', g.res_med())
+print('')
+print('Desvio Padrão: ', g.res_desvio())
 
 # PARA ESCREVER O ARQUIVO CSV
 
@@ -154,8 +191,11 @@ with open('resultado.csv', 'w') as f:
 	for row in rows:
 		csv_writer.writerow(row)
 
-	#for i in range(len(g.vertices)):
-	#	csv_writer.writerow(vertices[i] ',' str(cores[i]))
 
-	#for cor in cores:
-	#	csv_writer.writerow(str(cor))
+end = time.time()
+
+time = end - start
+
+print('')
+
+print ('Tempo de execução: ', time)
