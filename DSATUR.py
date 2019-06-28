@@ -140,29 +140,22 @@ loop = len(g.vertices)
 
 for i in range(loop):
 	vertices.append(list(g.vertices)[i])
-#print(vertices)
+	#print(vertices)
 
 for i in range(65, (65+loop)):
 	cores.append(g.vertices[chr(i)].cor)
-#print(cores)
+	#print(cores)
 
+rows = zip(vertices, cores)
 
-with open('resultado.csv', 'w') as new_file:
-	csv_writer = csv.writer(csvfile, delimiter=',')
+with open('resultado.csv', 'w') as f:
+	csv_writer = csv.writer(f, delimiter=',')	
 
-	for line in csv_reader:
-		csv_writer.writerow(line)
+	for row in rows:
+		csv_writer.writerow(row)
 
+	#for i in range(len(g.vertices)):
+	#	csv_writer.writerow(vertices[i] ',' str(cores[i]))
 
-
-
-with open('test.csv','a') as tempLog:
-    csv.writer(tempLog).writerow(["Time","Temp"])
-    
-for i in range(50):
-    #These are just to get some data for demonstration
-    time=i    
-    temp=i*20
-    
-    with open('test.csv','a') as tempLog:
-        csv.writer(tempLog).writerow([time,temp])
+	#for cor in cores:
+	#	csv_writer.writerow(str(cor))
