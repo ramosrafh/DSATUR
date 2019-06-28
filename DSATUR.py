@@ -191,7 +191,6 @@ with open('resultado.csv', 'w') as f:
 	for row in rows:
 		csv_writer.writerow(row)
 
-
 end = time.time()
 
 time = end - start
