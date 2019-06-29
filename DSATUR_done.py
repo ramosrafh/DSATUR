@@ -134,7 +134,7 @@ arestas = []
 
 # PARA LER O ARQUIVO CSV
 
-with open('grafocert.csv', newline='') as csvfile:
+with open('grafo04.csv', newline='') as csvfile:
 	csv_reader = csv.reader(csvfile, delimiter=',', skipinitialspace=True, quotechar="'")
 	csv_reader = list(csv_reader)
 	
@@ -177,7 +177,7 @@ for i in range(65, 65+loop):
 
 rows = zip(vertices, cores)
 
-with open('resultadocert.csv', 'w') as f:
+with open('resultado.csv', 'w') as f:
 	csv_writer = csv.writer(f, delimiter=',')	
 
 	for row in rows:
