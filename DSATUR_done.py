@@ -103,7 +103,6 @@ class Grafo:
 			if self.vertices[u].cor == cor:
 				return False    
 		return True
-	
 
 	def pintar(self, vert):
 		colors = []
@@ -117,8 +116,6 @@ class Grafo:
 				self.pintar(self.max_adj(vert))
 		self.pintar(self.max_adj(vert))
 		return True
-
-	
 		            
 	def mostrar_grafo(self):
 		for key in list(self.vertices.keys()):
@@ -172,8 +169,8 @@ loop = len(g.vertices)
 for i in range(loop):
 	vertices.append(list(g.vertices)[i])
 
-for i in range(65, 65+loop):
-			cores.append(chr(i))
+for u in g.vertices:
+	cores.append(g.vertices[u].cor)
 
 rows = zip(vertices, cores)
 
